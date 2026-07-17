@@ -1,13 +1,22 @@
 from pydantic import BaseModel
 
 class TodoCreate(BaseModel):
-    title: str
-    description: str | None = None
+    """
+    Pydantic schema for creating a new Todo
+    This validates data coming INTO the API
+    """
+    title: str  # Required field
+    description: str | None = None  # Optional field
 
 class TodoResponse(BaseModel):
-    id: int
+    """
+    Pydantic schema for returning a Todo from the API
+    This defines data going OUT of the API
+    """
+    id: int  # Database ID
     title: str
     description: str | None = None
 
     class Config:
-        from_attributes = True
+        # Allows Pydantic to read data from SQLAlchemy models directly
+        from_attributes = True        
